@@ -1,0 +1,59 @@
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+  <h1 class="display-4">Frmwrk</h1>
+  <p class="lead">Infaqkan sebagian harga Anda</p>
+</div>
+
+<div class="container">
+  <div class="card-deck mb-3">
+    <a href='#'>
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="http://via.placeholder.com/350x250" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+      </div>
+    </a>
+    <a href='#'>
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="http://via.placeholder.com/350x250" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+      </div>
+    </a>
+    <a href='#'>
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="http://via.placeholder.com/350x250" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <footer class="pt-4 my-md-5 pt-md-5 border-top">
+    <div class="row">
+      <div class="col-12 col-md">
+        <img class="mb-2" src="<%= static_path(@conn, "/images/logo.png") %>" alt="" width="64" height="64">
+        <small class="d-block mb-3 text-muted">&copy; 2017-2018</small>
+      </div>
+      <div class="col-6 col-md">
+        <h5>Bantuan</h5>
+        <ul class="list-unstyled text-small">
+          <li><a class="text-muted" href="#">FAQ</a></li>              
+          <li><a class="text-muted" href="#">Berdonasi</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-md">
+        <h5>Tentang</h5>
+        <ul class="list-unstyled text-small">
+          <li><a class="text-muted" href="#">Profil</a></li>
+          <li><a class="text-muted" href="#">Legal</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+</div>
