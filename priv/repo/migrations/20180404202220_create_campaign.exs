@@ -7,9 +7,12 @@ defmodule Frmwrk.Repo.Migrations.CreateCampaign do
       add :image_url, :string
       add :description, :string
       add :deadline, :date
+      add :url, :string
       add :user_id, references(:users)
 
       timestamps()
     end
+
+    create unique_index :campaigns, [:url], unique: true
   end
 end

@@ -12,5 +12,6 @@ defmodule Frmwrk.Repo.Migrations.CreateUsers do
       timestamps()
     end
 
+    create unique_index :users, [:email], unique: true
   end
 end

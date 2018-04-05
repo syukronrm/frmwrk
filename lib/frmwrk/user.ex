@@ -20,5 +20,6 @@ defmodule Frmwrk.User do
     user
     |> cast(attrs, [:first_name, :last_name, :email, :token, :provider])
     |> validate_required([:first_name, :last_name, :email, :token, :provider])
+    |> unique_constraint(:email)
   end
 end

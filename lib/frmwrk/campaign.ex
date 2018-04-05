@@ -7,6 +7,7 @@ defmodule Frmwrk.Campaign do
     field :image_url, :string
     field :description, :string
     field :deadline, :date
+    field :url, :string
 
     belongs_to :user, Frmwrk.User
 
@@ -18,7 +19,8 @@ defmodule Frmwrk.Campaign do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:title, :image_url, :description, :deadline])
-    |> validate_required([:title, :image_url, :description, :deadline])
+    |> cast(params, [:title, :image_url, :description, :deadline, :url])
+    |> validate_required([:title, :image_url, :description, :deadline, :url])
+    |> unique_constraint(:url)
   end
 end
