@@ -25,12 +25,17 @@ html {
 .box-shadow { box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); }
 
 a {
-  color: inherit; /* blue colors for links too */
-  text-decoration: inherit; /* no underline */
+  color: inherit; 
+  text-decoration: inherit; 
 
   &:hover {
-    color: inherit; /* blue colors for links too */
-    text-decoration: inherit; /* no underline */
+    color: inherit;
+    text-decoration: inherit; 
+  }
+
+  &:active {
+    color: inherit; 
+    text-decoration: inherit; 
   }
 }
 
