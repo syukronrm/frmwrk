@@ -7,17 +7,11 @@ defmodule FrmwrkWeb.CampaignControllerTest do
 
   def fixture(:campaign) do
     user = insert(:user)
-
-    campaign =
-      Frmwrk.Repo.insert!(%Campaign{
-        title: "Menjadi Supermen",
-        description: "supermen",
-        user_id: user.id
-      })
+    campaign = insert(:campaign, %{title: "Menjadi Supermen", user: user})
 
     {:ok, campaign: campaign, user: user}
   end
-
+  
   describe "index" do
     setup [:create_campaign]
 
