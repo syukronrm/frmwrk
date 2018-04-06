@@ -18,6 +18,7 @@ defmodule Frmwrk.Factory do
       description: "Mewujudkan pondok IT yang memajukan umat",
       deadline: Date.cast!("2018-05-20"),
       user: build(:user),
+      url: sequence("url")
     }
   end
 end
