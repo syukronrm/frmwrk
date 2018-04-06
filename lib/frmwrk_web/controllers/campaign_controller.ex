@@ -12,7 +12,8 @@ defmodule FrmwrkWeb.CampaignController do
   end
 
   def new(conn, _params) do
-    render conn, "new.html"
+    changeset = Campaign.changeset(%Campaign{})
+    render conn, "new.html", changeset: changeset
   end
 
   def show(conn, %{"url" => url}) do

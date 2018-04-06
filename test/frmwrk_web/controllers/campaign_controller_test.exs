@@ -83,6 +83,7 @@ defmodule FrmwrkWeb.CampaignControllerTest do
 
       assert html_response(conn, 200) =~ "Membuat campaign"
       assert get_flash(conn, :error) =~ "Data tidak sesuai"
+      assert html_response(conn, 200) =~ @invalid_attrs.url
     end
   end
 
