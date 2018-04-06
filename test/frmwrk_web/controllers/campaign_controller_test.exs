@@ -70,6 +70,20 @@ defmodule FrmwrkWeb.CampaignControllerTest do
       assert redirected_to(conn) == campaign_path(conn, :show, campaign.url)
       assert campaign.url == lastInserted.url
     end
+
+    test "back to page new campaign when data is invalid", %{conn: conn} do
+      user = insert :user
+
+      campaign = @invalid_attrs
+
+      conn =
+        conn
+        |> assign(:user, user)
+        |> post(campaign_path(conn, :create), campaign: campaign)
+
+      assert html_response(conn, 200) =~ "Membuat campaign"
+      assert get_flash(conn, :error) =~ "Data tidak sesuai"
+    end
   end
 
   defp create_campaign(_) do
