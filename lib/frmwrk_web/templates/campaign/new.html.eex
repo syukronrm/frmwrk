@@ -1,9 +1,21 @@
 <div class="container">
   <h1 class="text-center">Membuat campaign</h1>
+  <form method="post" action="">
+    <div class="form-group">
+      <label for="title">Judul Donasi</label>
+      <input type="email" class="form-control" id="title">
+      <small class="form-text text-muted">Contoh: Pembuatan Pesantren IT</small>
+    </div>
+    <div class="form-group">
+      <label for="deskripsi">Deskripsi</label>
+      <textarea class="form-control" id="deskripsi" rows="3"></textarea>
+      <small class="form-text text-muted">Deskripsikan secara rinci program donasi apa yang diajukan</small>      
+    </div>
+    <div class="form-group">
+      <label for="url">Alamat URL singkat</label>
+      <input type="text" class="form-control" id="url">
+      <small class="form-text text-muted">Masukkan alamat URL singkat sehingga mudah diakses, contoh: pesantrenit, maka dapat diakses dengan http://frmwrk.com/pesantrenit</small>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
 </div>
-
-<style>
-  h1 {
-    text-align: center;
-  }
-</style>

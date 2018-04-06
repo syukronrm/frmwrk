@@ -3,8 +3,6 @@ defmodule FrmwrkWeb.CampaignControllerTest do
 
   import Frmwrk.Factory
 
-  alias Frmwrk.Campaign
-
   def fixture(:campaign) do
     user = insert(:user)
     campaign = insert(:campaign, %{title: "Menjadi Supermen", user: user})
@@ -30,6 +28,9 @@ defmodule FrmwrkWeb.CampaignControllerTest do
       conn = get conn, campaign_path(conn, :new)
 
       assert html_response(conn, 200) =~ "Membuat campaign"
+      assert html_response(conn, 200) =~ "Judul"
+      assert html_response(conn, 200) =~ "Deskripsi"
+      assert html_response(conn, 200) =~ "Alamat URL singkat"
     end
   end
 

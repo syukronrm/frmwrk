@@ -5,33 +5,31 @@
 
 <div class="container">
   <div class="card-deck mb-3">
-    <a href='#'>
-      <div class="card" style="width: 18rem;">
-        <img class="card-img-top" src="http://via.placeholder.com/350x250" alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
+    <a class="card card-link" href='#' style="width: 18rem;">
+      <img class="card-img-top" src="http://via.placeholder.com/350x250" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
       </div>
     </a>
-    <a href='#'>
-      <div class="card" style="width: 18rem;">
-        <img class="card-img-top" src="http://via.placeholder.com/350x250" alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
+    <a class="card card-link" href='#' style="width: 18rem;">
+      <img class="card-img-top" src="http://via.placeholder.com/350x250" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
       </div>
     </a>
-    <a href='#'>
-      <div class="card" style="width: 18rem;">
-        <img class="card-img-top" src="http://via.placeholder.com/350x250" alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
+    <a class="card card-link" href='#' style="width: 18rem;">
+      <img class="card-img-top" src="http://via.placeholder.com/350x250" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
       </div>
     </a>
+  </div>
+
+  <div class="pt-4 text-center">
+    <a class="btn btn-primary btn-lg" href="<%= campaign_path(@conn, :index) %>" role="button">Jelajahi</a>
   </div>
 
   <footer class="pt-4 my-md-5 pt-md-5 border-top">
