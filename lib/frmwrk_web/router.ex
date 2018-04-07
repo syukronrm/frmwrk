@@ -26,7 +26,8 @@ defmodule FrmwrkWeb.Router do
 
     get "/", CampaignController, :index
     get "/new", CampaignController, :new
-    get "/create", CampaignController, :create
+    post "/create", CampaignController, :create
+    get "/:url", CampaignController, :show
   end
 
   scope "/auth", FrmwrkWeb do
