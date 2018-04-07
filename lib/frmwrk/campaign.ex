@@ -20,7 +20,7 @@ defmodule Frmwrk.Campaign do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:title, :image_url, :description, :deadline, :url])
-    |> validate_required([:title, :image_url, :description, :deadline, :url])
+    |> validate_required([:title, :description, :url])
     |> unique_constraint(:url)
   end
 end
