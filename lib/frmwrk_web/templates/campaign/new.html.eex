@@ -23,7 +23,7 @@
     </div>
     <div class="form-group">
       <label for="campaign_deadline">Deadline</label>
-      <input class="datepicker" id="campaign_deadline" name="campaign[deadline]"/>
+      <%= text_input f, :deadline, class: "datepicker form-control" %>
       <small class="form-text text-muted">Waktu maksimal kampanye terpenuhi</small>
     </div>
     <%= submit "Submit", class: "btn btn-primary" %>
