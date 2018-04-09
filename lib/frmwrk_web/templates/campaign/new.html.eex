@@ -7,6 +7,11 @@
       <small class="form-text text-muted">Contoh: Pembuatan Pesantren IT</small>
     </div>
     <div class="form-group">
+      <label for="short_description">Deskripsi Singkat</label>
+      <%= text_input f, :short_description, class: "form-control" %>
+      <small class="form-text text-muted">Deskripsikan secara ringkas dari program</small>      
+    </div>
+    <div class="form-group">
       <label for="description">Deskripsi</label>
       <%= textarea f, :description, [class: "form-control", rows: "4"] %>
       <small class="form-text text-muted">Deskripsikan secara rinci program donasi apa yang diajukan</small>      
