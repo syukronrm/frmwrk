@@ -20,6 +20,7 @@ defmodule FrmwrkWeb.Router do
 
     get "/", PageController, :index
     resources "/users", UserController
+    resources "/campaigns", CampaignController
   end
 
   # Other scopes may use custom stacks.

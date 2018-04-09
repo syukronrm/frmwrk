@@ -1,0 +1,28 @@
+<h2>Show Campaign</h2>
+
+<ul>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @campaign.title %>
+  </li>
+
+  <li>
+    <strong>Short description:</strong>
+    <%= @campaign.short_description %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @campaign.description %>
+  </li>
+
+  <li>
+    <strong>Deadline:</strong>
+    <%= @campaign.deadline %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: campaign_path(@conn, :edit, @campaign) %></span>
+<span><%= link "Back", to: campaign_path(@conn, :index) %></span>
