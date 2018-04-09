@@ -1,11 +1,6 @@
 <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
   <h5 class="my-0 mr-md-auto font-weight-normal">Frmwrk</h5>
   <nav class="my-2 my-md-0 mr-md-3">
-  <%=  if @conn.assigns[:user] do %>
-    <%= @conn.assigns.user.first_name %>
-    <a class="btn btn-outline-primary" href="/auth/signout">Keluar</a>
-  <% else %>
-    <a class="btn btn-outline-primary" href="/auth/google">Masuk</a>
-  <% end %>
+  <a class="btn btn-outline-primary" href="/auth/google">Masuk</a>
   </nav>
 </div>

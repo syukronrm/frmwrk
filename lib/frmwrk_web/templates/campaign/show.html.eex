@@ -1,4 +1,0 @@
-<div class='container'>
-  <%= @campaign.title %>
-  <%= @campaign.description %>
-</div>

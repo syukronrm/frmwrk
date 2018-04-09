@@ -28,9 +28,9 @@
     </a>
   </div>
 
-  <div class="pt-4 text-center">
+  <%# <div class="pt-4 text-center">
     <a class="btn btn-primary btn-lg" href="<%= campaign_path(@conn, :index) %>" role="button">Jelajahi</a>
-  </div>
+  </div> %>
 
   <footer class="pt-4 my-md-5 pt-md-5 border-top">
     <div class="row">
