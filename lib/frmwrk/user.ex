@@ -23,4 +23,13 @@ defmodule Frmwrk.User do
     |> validate_required([:first_name, :last_name, :email, :token, :provider])
     |> unique_constraint(:email)
   end
+
+  def type(num) do
+    case num do
+      :SUPER_ADMIN -> 1
+      :ADMIN -> 2
+      :CAMPAIGNER -> 3
+      :DONATUR -> 4
+    end
+  end
 end

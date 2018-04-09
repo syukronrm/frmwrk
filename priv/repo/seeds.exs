@@ -28,14 +28,14 @@ Repo.delete_all(Campaign)
   first_name: "Campaigner",
   last_name: "User",
   email: "usercampaigner@gmail.com",
-  role: 3
+  role: User.type(:CAMPAIGNER)
 }
 
 {:ok, _} = Repo.insert %User{
   first_name: "John",
   last_name: "Doe",
   email: "johndoe@gmail.com",
-  role: 4
+  role: User.type(:DONATUR)
 }
 
 {:ok, _} = Repo.insert %Campaign{
