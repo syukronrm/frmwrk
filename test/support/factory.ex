@@ -8,6 +8,7 @@ defmodule Frmwrk.Factory do
       first_name: "John",
       last_name: "Doe",
       email: sequence(:email, &"email-#{&1}@example.com"),
+      role: 3
     }
   end
 
