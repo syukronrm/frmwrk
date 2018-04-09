@@ -6,6 +6,7 @@ defmodule Frmwrk.Campaign do
     field :title, :string
     field :image_url, :string
     field :description, :string
+    field :short_description, :string
     field :deadline, :date
     field :url, :string
 

@@ -5,7 +5,8 @@ defmodule Frmwrk.Repo.Migrations.CreateCampaign do
     create table(:campaigns) do
       add :title, :string
       add :image_url, :string
-      add :description, :string
+      add :short_description, :string
+      add :description, :text
       add :deadline, :date
       add :url, :string
       add :user_id, references(:users)

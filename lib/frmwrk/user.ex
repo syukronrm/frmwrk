@@ -6,6 +6,7 @@ defmodule Frmwrk.User do
   schema "users" do
     field :first_name, :string
     field :last_name, :string
+    field :role, :integer
     field :email, :string
     field :token, :string
     field :provider, :string
