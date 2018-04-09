@@ -4,8 +4,8 @@ defmodule Frmwrk.Repo.Migrations.AddCommentsTable do
   def change do
     create table(:comments) do
       add :text, :text
-      add :user_id, references(:users)
-      add :campaign_id, references(:campaigns)
+      add :user_id, references(:users, on_delete: :delete_all)
+      add :campaign_id, references(:campaigns, on_delete: :delete_all)
 
       timestamps()
     end
