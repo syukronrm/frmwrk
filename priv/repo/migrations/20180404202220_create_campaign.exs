@@ -9,7 +9,7 @@ defmodule Frmwrk.Repo.Migrations.CreateCampaign do
       add :description, :text
       add :deadline, :date
       add :url, :string
-      add :user_id, references(:users, on_delete: :nilify_all)
+      add :user_id, references(:users)
 
       timestamps()
     end
