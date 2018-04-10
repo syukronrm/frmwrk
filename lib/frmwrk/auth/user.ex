@@ -7,7 +7,7 @@ defmodule Frmwrk.Auth.User do
     field :email, :string
     field :name, :string
     field :provider, :string
-    field :role, :integer
+    field :role, :integer, default: 4
     field :token, :string
 
     timestamps()
@@ -17,7 +17,16 @@ defmodule Frmwrk.Auth.User do
   def changeset(user, attrs) do
     user
     |> cast(attrs, [:name, :email, :token, :provider, :role])
-    |> validate_required([:name, :email, :token, :provider, :role])
+    |> validate_required([:name, :email, :token, :provider])
     |> unique_constraint(:email)
+  end
+
+  def type(user) do
+    case user do
+      :super_admin -> 1
+      :admin -> 2
+      :campaigner -> 3
+      :user -> 4
+    end
   end
 end

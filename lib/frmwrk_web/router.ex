@@ -8,7 +8,7 @@ defmodule FrmwrkWeb.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
 
-    # plug Frmwrk.Plugs.SetUser
+    plug Frmwrk.Plugs.SetUser
   end
 
   pipeline :api do
@@ -21,6 +21,14 @@ defmodule FrmwrkWeb.Router do
     get "/", PageController, :index
     resources "/users", UserController
     resources "/campaigns", CampaignController
+  end
+
+  scope "/auth", FrmwrkWeb do
+    pipe_through :browser
+
+    get "/signout", AuthController, :delete
+    get "/:provider", AuthController, :request
+    get "/:provider/callback", AuthController, :callback
   end
 
   # Other scopes may use custom stacks.

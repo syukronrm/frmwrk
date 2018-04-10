@@ -2,7 +2,7 @@ defmodule Frmwrk.Plugs.SetUser do
   import Plug.Conn
 
   alias Frmwrk.Repo
-  alias Frmwrk.User
+  alias Frmwrk.Auth.User
 
   def init(_params) do
   end
