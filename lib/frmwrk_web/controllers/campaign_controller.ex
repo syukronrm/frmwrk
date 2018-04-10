@@ -19,15 +19,23 @@ defmodule FrmwrkWeb.CampaignController do
       {:ok, campaign} ->
         conn
         |> put_flash(:info, "Campaign created successfully.")
-        |> redirect(to: campaign_path(conn, :show, campaign))
+        |> redirect(to: campaign_path(conn, :show, campaign.url))
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        conn
+        |> put_flash(:error, "Data tidak sesuai")
+        |> render("new.html", changeset: changeset)
     end
   end
 
-  def show(conn, %{"id" => id}) do
-    campaign = Campaigns.get_campaign!(id)
-    render(conn, "show.html", campaign: campaign)
+  def show(conn, %{"url" => url}) do
+    case Campaigns.get_campaign_by_url(url) do
+      nil ->
+        conn
+        |> put_flash(:error, "Kampanye tidak ditemukan")
+        |> redirect(to: campaign_path(conn, :index))
+      campaign ->
+        render conn, "show.html", campaign: campaign
+      end
   end
 
   def edit(conn, %{"id" => id}) do

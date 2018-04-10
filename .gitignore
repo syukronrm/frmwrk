@@ -30,3 +30,5 @@ npm-debug.log
 
 # ignore VSCode ElixirLS extension build files
 .elixir_ls
+
+.vscode

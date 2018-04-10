@@ -20,7 +20,16 @@ defmodule FrmwrkWeb.Router do
 
     get "/", PageController, :index
     resources "/users", UserController
-    resources "/campaigns", CampaignController
+    # resources "/campaigns", CampaignController
+  end
+
+  scope "/campaigns", FrmwrkWeb do
+    pipe_through :browser
+
+    get "/", CampaignController, :index
+    get "/new", CampaignController, :new
+    post "/create", CampaignController, :create
+    get "/:url", CampaignController, :show
   end
 
   scope "/auth", FrmwrkWeb do

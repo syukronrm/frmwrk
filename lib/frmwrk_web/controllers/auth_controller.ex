@@ -25,10 +25,7 @@ defmodule FrmwrkWeb.AuthController do
         |> put_flash(:info, "Thank you for signing in!")
         |> put_session(:user_id, user.id)
         |> redirect(to: page_path(conn, :index))
-
-      {:error, changeset} ->
-        IO.inspect changeset
-
+      {:error, _reason} ->
         conn
         |> put_flash(:error, "Error signing in")
         |> redirect(to: page_path(conn, :index))

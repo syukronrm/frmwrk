@@ -24,5 +24,4 @@
 
 </ul>
 
-<span><%= link "Edit", to: campaign_path(@conn, :edit, @campaign) %></span>
 <span><%= link "Back", to: campaign_path(@conn, :index) %></span>

@@ -10,8 +10,7 @@ defmodule Frmwrk.Campaigns.Campaign do
     field :short_description, :string
     field :title, :string
     field :image, :string
-    field :url, :string
-    field :campainger_id, :id
+    field :url, :string, null: false
 
     belongs_to :user, User
 
@@ -21,7 +20,7 @@ defmodule Frmwrk.Campaigns.Campaign do
   @doc false
   def changeset(campaign, attrs) do
     campaign
-    |> cast(attrs, [:title, :short_description, :description, :deadline])
-    |> validate_required([:title, :short_description, :description, :deadline])
+    |> cast(attrs, [:title, :short_description, :description, :deadline, :image, :url])
+    |> validate_required([:title, :url])
   end
 end
