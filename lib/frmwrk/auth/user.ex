@@ -2,6 +2,7 @@ defmodule Frmwrk.Auth.User do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias Frmwrk.Campaigns.Campaign
 
   schema "users" do
     field :email, :string
@@ -9,6 +10,8 @@ defmodule Frmwrk.Auth.User do
     field :provider, :string
     field :role, :integer, default: 4
     field :token, :string
+
+    has_many :campaigns, Campaign
 
     timestamps()
   end
@@ -26,7 +29,7 @@ defmodule Frmwrk.Auth.User do
       :super_admin -> 1
       :admin -> 2
       :campaigner -> 3
-      :user -> 4
+      :donatur -> 4
     end
   end
 end

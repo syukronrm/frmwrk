@@ -7,11 +7,13 @@ defmodule Frmwrk.Repo.Migrations.CreateCampaigns do
       add :short_description, :string
       add :description, :text
       add :deadline, :date
-      add :campainger_id, references(:users, on_delete: :nothing)
+      add :url, :string
+      add :image, :string
+      add :user_id, references(:users, on_delete: :nothing)
 
       timestamps()
     end
 
-    create index(:campaigns, [:campainger_id])
+    create index(:campaigns, [:user_id])
   end
 end

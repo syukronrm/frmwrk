@@ -1,32 +1,16 @@
-<h2>Listing Campaigns</h2>
-
-<table class="table">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Short description</th>
-      <th>Description</th>
-      <th>Deadline</th>
-
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for campaign <- @campaigns do %>
-    <tr>
-      <td><%= campaign.title %></td>
-      <td><%= campaign.short_description %></td>
-      <td><%= campaign.description %></td>
-      <td><%= campaign.deadline %></td>
-
-      <td class="text-right">
-        <span><%= link "Show", to: campaign_path(@conn, :show, campaign), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Edit", to: campaign_path(@conn, :edit, campaign), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Delete", to: campaign_path(@conn, :delete, campaign), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
-      </td>
-    </tr>
-<% end %>
-  </tbody>
-</table>
+<div class="container">
+  <h1 class="text-center">Lihat Kampanye</h1>
+  <div class="card-deck mb-3 mt-5">
+    <%= for campaign <- @campaigns do %>
+      <a class="card card-link" href='#' style="width: 18rem;">
+        <img class="card-img-top" src="http://via.placeholder.com/350x250" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title"><%= campaign.title %></h5>
+          <p class="card-text"><%= campaign.short_description %></p>
+        </div>
+      </a>
+    <% end %>
+  </div>
+</div>
 
 <span><%= link "New Campaign", to: campaign_path(@conn, :new) %></span>
