@@ -2,6 +2,7 @@ defmodule Frmwrk.Factory do
   use ExMachina.Ecto, repo: Frmwrk.Repo
 
   alias Frmwrk.Campaigns.Campaign
+  alias Frmwrk.Campaigns.Comment
   alias Frmwrk.Auth.User
   alias Ecto.Date
 
@@ -22,6 +23,14 @@ defmodule Frmwrk.Factory do
       deadline: Date.cast!("2018-05-20"),
       user: build(:user),
       url: sequence("url")
+    }
+  end
+
+  def comment_factory do
+    %Comment{
+      text: "This is positive comment",
+      user: build(:user),
+      campaign: build(:campaign)
     }
   end
 end

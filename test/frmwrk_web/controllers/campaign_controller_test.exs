@@ -2,7 +2,6 @@ defmodule FrmwrkWeb.CampaignControllerTest do
   use FrmwrkWeb.ConnCase
 
   import Frmwrk.Factory
-  alias Frmwrk.Campaigns
 
   @valid_attrs %{
     title: "Campaign Test",
@@ -34,6 +33,7 @@ defmodule FrmwrkWeb.CampaignControllerTest do
       conn = get conn, campaign_path(conn, :show, campaign.url)
 
       assert html_response(conn, 200) =~ campaign.title
+      assert html_response(conn, 200) =~ campaign.short_description
       assert html_response(conn, 200) =~ campaign.description
     end
 
