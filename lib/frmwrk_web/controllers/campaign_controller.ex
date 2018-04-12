@@ -35,7 +35,7 @@ defmodule FrmwrkWeb.CampaignController do
         |> redirect(to: campaign_path(conn, :index))
       campaign ->
         render conn, "show.html", campaign: campaign
-      end
+    end
   end
 
   def edit(conn, %{"id" => id}) do
@@ -65,4 +65,33 @@ defmodule FrmwrkWeb.CampaignController do
     |> put_flash(:info, "Campaign deleted successfully.")
     |> redirect(to: campaign_path(conn, :index))
   end
+
+  def donation_new(conn, %{"url" => url}) do
+    case Campaigns.get_campaign_by_url(url) do
+      nil ->
+        conn
+        |> put_flash(:error, "Kampanye tidak ditemukan")
+        |> redirect(to: campaign_path(conn, :index))
+      campaign ->
+        changeset_donation = Campaigns.change_donation(%Campaigns.Donation{})
+        conn
+        |> render("donation_new.html", changeset_donation: changeset_donation, campaign: campaign)
+    end
+  end
+
+  def donation_create(conn, %{"url" => url, "donation" => donation_params}) do
+    case Campaigns.get_campaign_by_url(url) do
+      nil ->
+        conn
+        |> put_flash(:error, "Kampanye tidak ditemukan")
+        |> redirect(to: campaign_path(conn, :index))
+      campaign ->
+        uniqueNumber = generate_unique_number
+    end
+  end
+
+  defp generate_unique_number() do
+    :rand.uniform() * 1000
+  end
+
 end

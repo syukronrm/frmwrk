@@ -13,6 +13,7 @@ defmodule Frmwrk.Campaigns.Campaign do
     field :url, :string, null: false
 
     belongs_to :user, User
+    has_many :comments, Frmwrk.Campaigns.Comment
 
     timestamps()
   end

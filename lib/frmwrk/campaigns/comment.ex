@@ -2,11 +2,11 @@ defmodule Frmwrk.Campaigns.Comment do
   use Ecto.Schema
   import Ecto.Changeset
 
-
   schema "comments" do
     field :text, :string
-    field :user_id, :id
-    field :campaign_id, :id
+
+    belongs_to :campaign, Frmwrk.Campaigns.Campaign
+    belongs_to :user, Frmwrk.Auth.User
 
     timestamps()
   end
