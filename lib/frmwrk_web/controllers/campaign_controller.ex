@@ -79,19 +79,14 @@ defmodule FrmwrkWeb.CampaignController do
     end
   end
 
-  def donation_create(conn, %{"url" => url, "donation" => donation_params}) do
+  def donation_create(conn, %{"url" => url, "donation" => _}) do
     case Campaigns.get_campaign_by_url(url) do
       nil ->
         conn
         |> put_flash(:error, "Kampanye tidak ditemukan")
         |> redirect(to: campaign_path(conn, :index))
-      campaign ->
-        uniqueNumber = generate_unique_number
+      _ ->
+        nil
     end
   end
-
-  defp generate_unique_number() do
-    :rand.uniform() * 1000
-  end
-
 end
