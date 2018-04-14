@@ -4,9 +4,12 @@ defmodule Frmwrk.Campaigns do
   """
 
   import Ecto.Query, warn: false
+  import Ecto.Changeset
+
   alias Frmwrk.Repo
 
   alias Frmwrk.Campaigns.Campaign
+  alias Frmwrk.Auth.User
 
   def list_campaigns do
     Repo.all(Campaign)
@@ -44,9 +47,12 @@ defmodule Frmwrk.Campaigns do
 
   def get_donation!(id), do: Repo.get!(Donation, id)
 
-  def create_donation(attrs \\ %{}) do
+  def create_donation(attrs \\ %{}, %Campaign{} = campaign, %User{} = user) do
     %Donation{}
     |> Donation.changeset(attrs)
+    |> put_assoc(:user, user)
+    |> put_assoc(:campaign, campaign)
+    |> Donation.add_unique_number()
     |> Repo.insert()
   end
 
