@@ -15,9 +15,11 @@ alias Frmwrk.Repo
 
 alias Frmwrk.Auth.User
 alias Frmwrk.Campaigns.Campaign
+alias Frmwrk.Campaigns.Donation
 
-Repo.delete_all(User)
+Repo.delete_all(Donation)
 Repo.delete_all(Campaign)
+Repo.delete_all(User)
 
 # Campaigner
 {:ok, campaigner1} = Repo.insert %User{
@@ -39,14 +41,14 @@ Repo.insert %User{
 }
 
 # Donatur
-Repo.insert %User{
+{:ok, donatur1} = Repo.insert %User{
   name: "Donatur One",
   email: "donatur1@gmail.com",
   role: User.type(:donatur)
 }
 
 # Campaign
-{:ok, _} = Repo.insert %Campaign{
+{:ok, campaign1} = Repo.insert %Campaign{
   title: "Campaign One",
   short_description: "Dolore velit dolor exercitationem ut cupiditate",
   description: "Dolore velit dolor exercitationem ut cupiditate. Quisquam eum animi numquam modi. Explicabo occaecati qui qui ea officiis. Eos eius sint enim. Laudantium dicta exercitationem ea ex. Odit est at dignissimos. Odit quas consequatur eos quos. Et eum dolorem nemo quis quo.",
@@ -74,4 +76,12 @@ Repo.insert %User{
   url: "campaignthree",
   user_id: campaigner1.id,
   deadline: Date.cast!("2018-05-10")
+}
+
+{:ok, _} = Repo.insert %Donation {
+  amount: 230234,
+  unique_number: 234,
+  user_id: donatur1.id,
+  verified_at: Date.cast!("2018-04-30"),
+  campaign_id: campaign1.id
 }
