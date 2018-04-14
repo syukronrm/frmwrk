@@ -17,14 +17,12 @@ defmodule FrmwrkWeb.DonationControllerTest do
   describe "show" do
     setup [:create_campaign]
 
-    @tag donation: true
     test "show donate button", %{conn: conn, campaign: campaign} do
       conn = get conn, campaign_path(conn, :new, campaign.url)
 
       assert html_response(conn, 200) =~ "Donasi"
     end
 
-    @tag donation: true
     test "show input form", %{conn: conn, campaign: campaign} do
       conn = get conn, campaign_path(conn, :donation_new, campaign.url)
 
@@ -35,7 +33,6 @@ defmodule FrmwrkWeb.DonationControllerTest do
   describe "new" do
     setup [:create_campaign]
 
-    @tag donation: true
     test "post donation to campaign", %{conn: conn, campaign: campaign} do
       user = insert(:user)
 
@@ -49,7 +46,6 @@ defmodule FrmwrkWeb.DonationControllerTest do
       assert html_response(conn, 200) =~ ~r/donasi sekarang/i
     end
 
-    @tag donation: true
     test "redirected to input when value is invalid", %{conn: conn, campaign: campaign} do
       user = insert(:user)
 
@@ -62,7 +58,6 @@ defmodule FrmwrkWeb.DonationControllerTest do
       assert redirected_to(conn, 302) == campaign_path(conn, :campaign_new, campaign.url)
     end
 
-    @tag donation: true
     test "redirected to campaign page when donation is success", %{conn: conn, campaign: campaign} do
       user = insert(:user)
 

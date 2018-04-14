@@ -26,7 +26,6 @@ defmodule FrmwrkWeb.CommentControllerText do
   describe "show comments" do
     setup [:create_comment]
 
-    @tag comment: true
     test "show comments", %{conn: conn, campaign: campaign} do
       conn = get conn, campaign_path(conn, :show, campaign.url)
 
@@ -38,7 +37,6 @@ defmodule FrmwrkWeb.CommentControllerText do
   describe "form validation" do
     setup [:create_campaign]
 
-    @tag comment: true
     test "show create new comment form when user is campaign's backer or campaigner", %{conn: conn, campaign: campaign, user: user} do
       conn =
         conn
@@ -48,7 +46,6 @@ defmodule FrmwrkWeb.CommentControllerText do
       assert html_response(conn, 200) =~ "<button type=\"submit\""
     end
 
-    @tag comment: true
     test "do not show new comment form when user is not logged in", %{conn: conn, campaign: campaign} do
       conn = get conn, campaign_path(conn, :show, campaign.url)
 
@@ -59,7 +56,6 @@ defmodule FrmwrkWeb.CommentControllerText do
   describe "new" do
     setup [:create_campaign]
 
-    @tag comment: true
     test "show info flash when comment is valid", %{conn: conn, user: user, campaign: campaign} do
       conn =
         conn
@@ -70,7 +66,6 @@ defmodule FrmwrkWeb.CommentControllerText do
       assert get_flash(conn, :info) =~ "Terima kasih atas komentar Anda"
     end
 
-    @tag comment: true
     test "show error flash when comment is invalid", %{conn: conn, user: user, campaign: campaign} do
       conn =
         conn
