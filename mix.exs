@@ -20,7 +20,7 @@ defmodule Frmwrk.Mixfile do
   def application do
     [
       mod: {Frmwrk.Application, []},
-      extra_applications: [:logger, :runtime_tools, :ueberauth]
+      extra_applications: [:logger, :runtime_tools, :ueberauth, :comeonin]
     ]
   end
 
@@ -43,7 +43,9 @@ defmodule Frmwrk.Mixfile do
       {:cowboy, "~> 1.0"},
       {:ueberauth, "~> 0.4"},
       {:ueberauth_google, "~> 0.7"},
-      {:ex_machina, "~> 2.2", only: :test}
+      {:ex_machina, "~> 2.2", only: :test},
+      {:comeonin, "~> 4.0"},
+      {:bcrypt_elixir, "~> 1.0"}
     ]
   end
 
