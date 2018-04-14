@@ -8,6 +8,7 @@ defmodule Frmwrk.Repo.Migrations.CreateUsers do
       add :token, :string
       add :provider, :string
       add :role, :integer
+      add :password_hash, :string
 
       timestamps()
     end

@@ -8,6 +8,8 @@ defmodule Frmwrk.Auth.User do
     field :provider, :string
     field :role, :integer, default: 4
     field :token, :string
+    field :password, :string, virtual: true
+    field :password_hash, :string
 
     has_many :campaigns, Frmwrk.Campaigns.Campaign
     has_many :comments, Frmwrk.Campaigns.Comment
@@ -30,5 +32,10 @@ defmodule Frmwrk.Auth.User do
       :campaigner -> 3
       :donatur -> 4
     end
+  end
+
+  def hash_password(changeset, password) do
+    changeset
+    |> put_change(:password_hash, Comeonin.Bcrypt.hashpwsalt(password))
   end
 end
