@@ -1,8 +1,16 @@
+# TODO
+# - create_login: POST /login
+#   - check user
+#   - insert to session
+# - create
+#   - redirect to set password if password empty
+
 defmodule FrmwrkWeb.AuthController do
   use FrmwrkWeb, :controller
   plug Ueberauth
 
   alias Frmwrk.Auth.User
+  alias Frmwrk.Auth
   alias Frmwrk.Repo
 
   def callback(%{assigns: %{ueberauth_auth: auth}} = conn, _params) do
@@ -46,4 +54,37 @@ defmodule FrmwrkWeb.AuthController do
         {:ok, user}
     end
   end
+
+  def password(conn, _params) do
+    changeset = Auth.change_user(%User{})
+    render conn, "set_password.html", changeset: changeset
+  end
+
+  def set_password(conn, %{"user" => user_params}) do
+    %{"password" => password, "password_again" => password_again} = user_params
+
+    case password == password_again do
+      false ->
+        conn
+        |> put_flash(:error, "Pastikan Anda mengetik password yang sama")
+        |> redirect(to: auth_path(conn, :password))
+      _ ->
+        Auth.get_user!(conn.assigns.user.id)
+        |> Auth.change_user
+        |> Auth.change_password(password)
+
+        conn
+        |> put_flash(:info, "Terima kasih, password berhasil dibuat")
+        |> redirect(to: page_path(conn, :index))
+    end
+  end
+
+  def login(conn, _params) do
+    changeset = Auth.change_user(%User{})
+    render conn, "login.html", changeset: changeset
+  end
+
+  # def create_login(conn, %{"user" => user_params}) do
+
+  # end
 end

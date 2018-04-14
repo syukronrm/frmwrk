@@ -40,9 +40,16 @@ defmodule FrmwrkWeb.Router do
   scope "/auth", FrmwrkWeb do
     pipe_through :browser
 
+    get "/login", AuthController, :login
+    post "/login", AuthController, :create_login
+
+    get "/password", AuthController, :password
+    post "/password", AuthController, :set_password
+
     get "/signout", AuthController, :delete
     get "/:provider", AuthController, :request
     get "/:provider/callback", AuthController, :callback
+
   end
 
   # Other scopes may use custom stacks.
