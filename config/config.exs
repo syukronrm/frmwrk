@@ -36,9 +36,9 @@ config :ueberauth, Ueberauth.Strategy.Google.OAuth,
 config :bcrypt_elixir, :log_rounds, 4
 
 # Config Guardian
-config :guardian, Frmwrk.Auth.Guardian,
+config :frmwrk, Frmwrk.Auth.Guardian,
   issuer: "frmwrk",
-  secret_key: "Th1zi5n0t@s3cr3tKEi"
+  secret_key: "Yxa+fdhdv3uMSE8iXVYVCA3Wp5ncQALtmwo7W6in/1KT8tWKw3xCS3kgpSEmtJPK"
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
