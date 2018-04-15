@@ -1,7 +1,8 @@
 defmodule Frmwrk.Auth.User do
   use Ecto.Schema
   import Ecto.{Changeset, Query}
-  
+  import Comeonin.Bcrypt, only: [checkpw: 2, dummy_checkpw: 0]
+
   alias Frmwrk.Repo
 
   schema "users" do
@@ -42,15 +43,34 @@ defmodule Frmwrk.Auth.User do
   end
 
   def password_exist?(query, %__MODULE__{} = user) do
-    query = from u in query, 
+    query = from u in query,
           where: is_nil(u.password_hash)
           and ^user.id == u.id
 
     case Repo.one query do
-      nil -> 
-        true 
+      nil ->
+        true
       _ ->
         false
+    end
+  end
+
+  def check_creds(email, password) do
+    query = from u in __MODULE__, where: u.email == ^email
+    user = Repo.one query
+
+    cond do
+      password == nil ->
+        {:error, :empty_password}
+      user.password_hash == nil ->
+        {:error, :password_had_not_set}
+      user && checkpw(password, user.password_hash) ->
+        {:ok}
+      user ->
+        {:error, :unauthorized}
+      true ->
+        dummy_checkpw()
+        {:error, :not_found}
     end
   end
 end

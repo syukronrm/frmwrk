@@ -1,9 +1,9 @@
 # TODO
-# - create_login: POST /login
-#   - check user
+# OK create_login: POST /login
+#   OK check user
 #   - insert to session
-# - create
-#   - redirect to set password if password empty
+# OK create
+#   OK redirect to set password if password empty
 
 defmodule FrmwrkWeb.AuthController do
   use FrmwrkWeb, :controller
@@ -36,7 +36,7 @@ defmodule FrmwrkWeb.AuthController do
             |> put_session(:user_id, user.id)
             |> redirect(to: page_path(conn, :index))
           _ ->
-            conn 
+            conn
             |> put_flash(:info, "Buat password terlebih dahulu")
             |> put_session(:user_id, user.id)
             |> redirect(to: auth_path(conn, :password))
@@ -77,10 +77,12 @@ defmodule FrmwrkWeb.AuthController do
         conn
         |> put_flash(:error, "Pastikan Anda mengetik password yang sama")
         |> redirect(to: auth_path(conn, :password))
+
       _ ->
         Auth.get_user!(conn.assigns.user.id)
         |> Auth.change_user
         |> Auth.change_password(password)
+        |> Auth.apply_user
 
         conn
         |> put_flash(:info, "Terima kasih, password berhasil dibuat")
@@ -93,7 +95,19 @@ defmodule FrmwrkWeb.AuthController do
     render conn, "login.html", changeset: changeset
   end
 
-  # def create_login(conn, %{"user" => user_params}) do
+  def create_login(conn, %{"user" => %{"email" => email, "password" => password}}) do
+    case User.check_creds(email, password) do
+      {:ok} ->
+        conn
+        |> put_flash(:info, "You're now logged in!")
+        |> redirect(to: page_path(conn, :index))
 
-  # end
+      {:error, _reason} ->
+        changeset = Auth.change_user(%User{})
+
+        conn
+        |> put_flash(:error, "Invalid email/password")
+        |> render("login.html", changeset: changeset)
+    end
+  end
 end

@@ -4,6 +4,7 @@ defmodule Frmwrk.Auth do
   """
 
   import Ecto.Query, warn: false
+  alias Ecto.Changeset
   alias Frmwrk.Repo
 
   alias Frmwrk.Auth.User
@@ -18,6 +19,11 @@ defmodule Frmwrk.Auth do
     %User{}
     |> User.changeset(attrs)
     |> Repo.insert()
+  end
+
+  def apply_user(%Changeset{} = user) do
+    user
+    |> Repo.update()
   end
 
   def update_user(%User{} = user, attrs) do
