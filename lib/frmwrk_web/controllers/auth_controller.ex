@@ -29,10 +29,19 @@ defmodule FrmwrkWeb.AuthController do
   def create(conn, changeset) do
     case insert_or_update_user(changeset) do
       {:ok, user} ->
-        conn
-        |> put_flash(:info, "Thank you for signing in!")
-        |> put_session(:user_id, user.id)
-        |> redirect(to: page_path(conn, :index))
+        case User.password_exist?(User, user) do
+          true ->
+            conn
+            |> put_flash(:info, "Thank you for signing in!")
+            |> put_session(:user_id, user.id)
+            |> redirect(to: page_path(conn, :index))
+          _ ->
+            conn 
+            |> put_flash(:info, "Buat password terlebih dahulu")
+            |> put_session(:user_id, user.id)
+            |> redirect(to: auth_path(conn, :password))
+        end
+
       {:error, _reason} ->
         conn
         |> put_flash(:error, "Error signing in")

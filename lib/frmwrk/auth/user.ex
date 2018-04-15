@@ -1,6 +1,8 @@
 defmodule Frmwrk.Auth.User do
   use Ecto.Schema
-  import Ecto.Changeset
+  import Ecto.{Changeset, Query}
+  
+  alias Frmwrk.Repo
 
   schema "users" do
     field :email, :string
@@ -37,5 +39,18 @@ defmodule Frmwrk.Auth.User do
   def hash_password(changeset, password) do
     changeset
     |> put_change(:password_hash, Comeonin.Bcrypt.hashpwsalt(password))
+  end
+
+  def password_exist?(query, %__MODULE__{} = user) do
+    query = from u in query, 
+          where: is_nil(u.password_hash)
+          and ^user.id == u.id
+
+    case Repo.one query do
+      nil -> 
+        true 
+      _ ->
+        false
+    end
   end
 end
