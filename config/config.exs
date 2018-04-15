@@ -32,7 +32,13 @@ config :ueberauth, Ueberauth.Strategy.Google.OAuth,
   client_id: System.get_env("GOOGLE_CLIENT_ID"),
   client_secret: System.get_env("GOOGLE_CLIENT_SECRET")
 
+# Config Bcrypt
 config :bcrypt_elixir, :log_rounds, 4
+
+# Config Guardian
+config :guardian, Frmwrk.Auth.Guardian,
+  issuer: "frmwrk",
+  secret_key: "Th1zi5n0t@s3cr3tKEi"
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

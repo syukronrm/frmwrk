@@ -45,7 +45,8 @@ defmodule Frmwrk.Mixfile do
       {:ueberauth_google, "~> 0.7"},
       {:ex_machina, "~> 2.2", only: :test},
       {:comeonin, "~> 4.0"},
-      {:bcrypt_elixir, "~> 1.0"}
+      {:bcrypt_elixir, "~> 1.0"},
+      {:guardian, "~> 1.0"}
     ]
   end
 
