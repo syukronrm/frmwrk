@@ -9,9 +9,9 @@ defmodule FrmwrkWeb.AuthController do
   use FrmwrkWeb, :controller
   plug Ueberauth
 
-  alias Frmwrk.Auth.User
-  alias Frmwrk.Auth
   alias Frmwrk.Repo
+  alias Frmwrk.Auth
+  alias Frmwrk.Auth.{Guardian, User}
 
   def callback(%{assigns: %{ueberauth_auth: auth}} = conn, _params) do
     user_params = %{
@@ -33,12 +33,12 @@ defmodule FrmwrkWeb.AuthController do
           true ->
             conn
             |> put_flash(:info, "Thank you for signing in!")
-            |> put_session(:user_id, user.id)
+            |> Guardian.Plug.sign_in(user)
             |> redirect(to: page_path(conn, :index))
           _ ->
             conn
             |> put_flash(:info, "Buat password terlebih dahulu")
-            |> put_session(:user_id, user.id)
+            |> Guardian.Plug.sign_in(user)
             |> redirect(to: auth_path(conn, :password))
         end
 
@@ -51,7 +51,7 @@ defmodule FrmwrkWeb.AuthController do
 
   def delete(conn, _params) do
     conn
-    |> configure_session(drop: true)
+    |> Guardian.Plug.sign_out()
     |> redirect(to: page_path(conn, :index))
   end
 

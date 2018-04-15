@@ -1,14 +1,17 @@
 defmodule FrmwrkWeb.Router do
   use FrmwrkWeb, :router
 
+  pipeline :auth do
+    plug Frmwrk.Auth.Pipeline
+    plug Frmwrk.Plugs.SetUser
+  end
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
-
-    plug Frmwrk.Plugs.SetUser
   end
 
   pipeline :api do
@@ -16,7 +19,7 @@ defmodule FrmwrkWeb.Router do
   end
 
   scope "/", FrmwrkWeb do
-    pipe_through :browser # Use the default browser stack
+    pipe_through [:browser, :auth] # Use the default browser stack
 
     get "/", PageController, :index
     resources "/users", UserController
@@ -24,7 +27,7 @@ defmodule FrmwrkWeb.Router do
   end
 
   scope "/campaigns", FrmwrkWeb do
-    pipe_through :browser
+    pipe_through [:browser, :auth]
 
     get "/", CampaignController, :index
     get "/new", CampaignController, :new
