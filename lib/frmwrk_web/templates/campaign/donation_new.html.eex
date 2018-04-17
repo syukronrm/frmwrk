@@ -1,6 +1,6 @@
 <div class="container text-center">
   <h2 class="text-center mt-5">Masukkan Nominal</h2>
-  <%= form_for @changeset_donation, campaign_path(@conn, :donation_create, @campaign.url), fn f -> %>
+  <%= form_for @changeset, campaign_path(@conn, :donation_create, @campaign.url), fn f -> %>
     <div class="input-group input-group-lg mb-2 mt-5" style="width: 500px; margin: auto;">
       <div class="input-group-prepend">
         <span class="input-group-text">Rp.</span>

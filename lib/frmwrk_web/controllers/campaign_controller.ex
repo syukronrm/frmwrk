@@ -3,6 +3,7 @@ defmodule FrmwrkWeb.CampaignController do
 
   alias Frmwrk.Campaigns
   alias Frmwrk.Campaigns.Campaign
+  alias Frmwrk.Auth.User
 
   def index(conn, _params) do
     campaigns = Campaigns.list_campaigns()
@@ -38,12 +39,6 @@ defmodule FrmwrkWeb.CampaignController do
     end
   end
 
-  def edit(conn, %{"id" => id}) do
-    campaign = Campaigns.get_campaign!(id)
-    changeset = Campaigns.change_campaign(campaign)
-    render(conn, "edit.html", campaign: campaign, changeset: changeset)
-  end
-
   def update(conn, %{"id" => id, "campaign" => campaign_params}) do
     campaign = Campaigns.get_campaign!(id)
 
@@ -73,20 +68,35 @@ defmodule FrmwrkWeb.CampaignController do
         |> put_flash(:error, "Kampanye tidak ditemukan")
         |> redirect(to: campaign_path(conn, :index))
       campaign ->
-        changeset_donation = Campaigns.change_donation(%Campaigns.Donation{})
+        changeset = Campaigns.change_donation(%Campaigns.Donation{})
         conn
-        |> render("donation_new.html", changeset_donation: changeset_donation, campaign: campaign)
+        |> render("donation_new.html", changeset: changeset, campaign: campaign)
     end
   end
 
-  def donation_create(conn, %{"url" => url, "donation" => _}) do
+  def donation_create(conn, %{"url" => url, "donation" => donation_params}) do
     case Campaigns.get_campaign_by_url(url) do
       nil ->
         conn
         |> put_flash(:error, "Kampanye tidak ditemukan")
         |> redirect(to: campaign_path(conn, :index))
       _ ->
-        nil
+        campaign = Campaigns.get_campaign_by_url(url)
+        user =
+          if conn.assigns.user do
+            conn.assigns.user
+          else
+            %User{}
+          end
+
+        case Campaigns.create_donation(donation_params, campaign, user) do
+          {:ok, donation} ->
+            conn
+            |> render("donation_confirm.html", donation: donation)
+          {:error, changeset} ->
+            conn
+            |> render("donation_new.html", changeset: changeset)
+        end
     end
   end
 end

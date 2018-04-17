@@ -1,0 +1,9 @@
+<div class="container text-center">
+  <h2 class="text-center mt-5">Konfirmasi</h2>
+  <p>Donasi yang harus Anda kirim adalah sejumlah</p>
+  <h1>Rp. <%= @donation.amount %>,00</h1>
+
+  <p>Kami menambahkan Rp. <%= @donation.unique_number %>,00 sebagai kode konfirmasi.</p>
+  <p>Kode tersebut digunakan untuk konfirmasi transfer otomatis</p>
+  <p>Anda tidak perlu konfirmasi manual</p>
+</div>
