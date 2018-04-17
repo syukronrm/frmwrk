@@ -10,6 +10,7 @@ defmodule Frmwrk.Campaigns.Donation do
     field :amount, :integer
     field :verified_at, :date
     field :unique_number, :integer
+    field :confirmed, :boolean
 
     belongs_to :user, Frmwrk.Auth.User
     belongs_to :campaign, Frmwrk.Campaigns.Campaign

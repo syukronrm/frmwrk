@@ -6,6 +6,7 @@ defmodule Frmwrk.Repo.Migrations.CreateDonations do
       add :amount, :integer
       add :verified_at, :date
       add :unique_number, :integer
+      add :confirmed, :boolean
       add :user_id, references(:users, on_delete: :nothing)
       add :campaign_id, references(:campaigns, on_delete: :nothing)
 
