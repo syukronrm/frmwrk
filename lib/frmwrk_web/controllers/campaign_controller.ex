@@ -95,7 +95,8 @@ defmodule FrmwrkWeb.CampaignController do
             |> render("donation_confirm.html", donation: donation)
           {:error, changeset} ->
             conn
-            |> render("donation_new.html", changeset: changeset)
+            |> put_flash(:info, "Pastikan donasi Anda lebih dari Rp. 20.000,-")
+            |> render("donation_new.html", changeset: changeset, campaign: campaign)
         end
     end
   end

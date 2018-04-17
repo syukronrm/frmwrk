@@ -26,10 +26,16 @@ defmodule Frmwrk.Campaigns.Donation do
   end
 
   def add_unique_number(changeset) do
-    unique_number = generate_unique_number()
-    changeset
-    |> put_change(:amount, get_field(changeset, :amount) + unique_number)
-    |> put_change(:unique_number, unique_number)
+    case changeset.valid? do
+      true ->
+        unique_number = generate_unique_number()
+        changeset
+        |> put_change(:amount, get_field(changeset, :amount) + unique_number)
+        |> put_change(:unique_number, unique_number)
+      false ->
+        changeset
+    end
+
   end
 
   def generate_unique_number() do
