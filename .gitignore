@@ -32,3 +32,7 @@ npm-debug.log
 .elixir_ls
 
 .vscode
+
+# session
+Session.vim
+
