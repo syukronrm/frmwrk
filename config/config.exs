@@ -12,7 +12,7 @@ config :frmwrk,
 # Configures the endpoint
 config :frmwrk, FrmwrkWeb.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "rKnKVYXeGQHwV8nGJhkhVRiVbTL0x0xUYkXlHEOQL+C4ZEUUtIGWVQZqhU9LznQF",
+  secret_key_base: System.get_env("ENDPOINT_SECRET_KEY"),
   render_errors: [view: FrmwrkWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: Frmwrk.PubSub,
            adapter: Phoenix.PubSub.PG2]
@@ -38,7 +38,7 @@ config :bcrypt_elixir, :log_rounds, 4
 # Config Guardian
 config :frmwrk, Frmwrk.Auth.Guardian,
   issuer: "frmwrk",
-  secret_key: "Yxa+fdhdv3uMSE8iXVYVCA3Wp5ncQALtmwo7W6in/1KT8tWKw3xCS3kgpSEmtJPK"
+  secret_key: System.get_env("GUARDIAN_SECRET_KEY")
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
