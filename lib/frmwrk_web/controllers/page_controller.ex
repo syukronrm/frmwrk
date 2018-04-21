@@ -5,6 +5,6 @@ defmodule FrmwrkWeb.PageController do
 
   def index(conn, _params) do
     # IEx.pry
-    render conn, "index.html"
+    render(conn, "index.html")
   end
 end

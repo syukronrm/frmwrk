@@ -8,6 +8,7 @@ defmodule Frmwrk.Plugs.SetUser do
 
   def call(conn, _params) do
     current_user = Guardian.Plug.current_resource(conn)
+
     conn
     |> assign(:user, current_user)
   end

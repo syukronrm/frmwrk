@@ -11,7 +11,7 @@ defmodule Frmwrk.Application do
       # Start the Ecto repository
       supervisor(Frmwrk.Repo, []),
       # Start the endpoint when the application starts
-      supervisor(FrmwrkWeb.Endpoint, []),
+      supervisor(FrmwrkWeb.Endpoint, [])
       # Start your own worker by calling: Frmwrk.Worker.start_link(arg1, arg2, arg3)
       # worker(Frmwrk.Worker, [arg1, arg2, arg3]),
     ]

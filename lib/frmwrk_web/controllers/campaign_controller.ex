@@ -20,6 +20,7 @@ defmodule FrmwrkWeb.CampaignController do
         conn
         |> put_flash(:info, "Campaign created successfully.")
         |> redirect(to: campaign_path(conn, :show, campaign.url))
+
       {:error, %Ecto.Changeset{} = changeset} ->
         conn
         |> put_flash(:error, "Data tidak sesuai")
@@ -33,8 +34,9 @@ defmodule FrmwrkWeb.CampaignController do
         conn
         |> put_flash(:error, "Kampanye tidak ditemukan")
         |> redirect(to: campaign_path(conn, :index))
+
       campaign ->
-        render conn, "show.html", campaign: campaign
+        render(conn, "show.html", campaign: campaign)
     end
   end
 
@@ -46,6 +48,7 @@ defmodule FrmwrkWeb.CampaignController do
         conn
         |> put_flash(:info, "Campaign updated successfully.")
         |> redirect(to: campaign_path(conn, :show, campaign))
+
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", campaign: campaign, changeset: changeset)
     end

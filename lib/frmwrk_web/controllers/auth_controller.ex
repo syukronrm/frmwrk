@@ -7,7 +7,7 @@
 
 defmodule FrmwrkWeb.AuthController do
   use FrmwrkWeb, :controller
-  plug Ueberauth
+  plug(Ueberauth)
 
   alias Frmwrk.Repo
   alias Frmwrk.Auth
@@ -35,6 +35,7 @@ defmodule FrmwrkWeb.AuthController do
             |> put_flash(:info, "Thank you for signing in!")
             |> Guardian.Plug.sign_in(user)
             |> redirect(to: page_path(conn, :index))
+
           _ ->
             conn
             |> put_flash(:info, "Buat password terlebih dahulu")
@@ -59,6 +60,7 @@ defmodule FrmwrkWeb.AuthController do
     case Repo.get_by(User, email: changeset.changes.email) do
       nil ->
         Repo.insert(changeset)
+
       user ->
         {:ok, user}
     end
@@ -66,7 +68,7 @@ defmodule FrmwrkWeb.AuthController do
 
   def password(conn, _params) do
     changeset = Auth.change_user(%User{})
-    render conn, "set_password.html", changeset: changeset
+    render(conn, "set_password.html", changeset: changeset)
   end
 
   def set_password(conn, %{"user" => user_params}) do
@@ -80,9 +82,9 @@ defmodule FrmwrkWeb.AuthController do
 
       _ ->
         Auth.get_user!(conn.assigns.user.id)
-        |> Auth.change_user
+        |> Auth.change_user()
         |> Auth.change_password(password)
-        |> Auth.apply_user
+        |> Auth.apply_user()
 
         conn
         |> put_flash(:info, "Terima kasih, password berhasil dibuat")
@@ -92,7 +94,7 @@ defmodule FrmwrkWeb.AuthController do
 
   def login(conn, _params) do
     changeset = Auth.change_user(%User{})
-    render conn, "login.html", changeset: changeset
+    render(conn, "login.html", changeset: changeset)
   end
 
   def create_login(conn, %{"user" => %{"email" => email, "password" => password}}) do

@@ -15,9 +15,9 @@ defmodule Frmwrk.Campaigns do
     Repo.all(Campaign)
   end
 
-  def get_campaign!(id), do: Repo.get! Campaign, id
+  def get_campaign!(id), do: Repo.get!(Campaign, id)
 
-  def get_campaign_by_url(url), do: Repo.get_by Campaign, url: url
+  def get_campaign_by_url(url), do: Repo.get_by(Campaign, url: url)
 
   def create_campaign(attrs \\ %{}) do
     %Campaign{}

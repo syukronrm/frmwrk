@@ -3,10 +3,10 @@ defmodule Frmwrk.Campaigns.Comment do
   import Ecto.Changeset
 
   schema "comments" do
-    field :text, :string
+    field(:text, :string)
 
-    belongs_to :campaign, Frmwrk.Campaigns.Campaign
-    belongs_to :user, Frmwrk.Auth.User
+    belongs_to(:campaign, Frmwrk.Campaigns.Campaign)
+    belongs_to(:user, Frmwrk.Auth.User)
 
     timestamps()
   end

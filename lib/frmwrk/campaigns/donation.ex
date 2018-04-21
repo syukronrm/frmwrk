@@ -8,13 +8,13 @@ defmodule Frmwrk.Campaigns.Donation do
   import Ecto.Query
 
   schema "donations" do
-    field :amount, :integer
-    field :verified_at, :date
-    field :unique_number, :integer
-    field :confirmed, :boolean
+    field(:amount, :integer)
+    field(:verified_at, :date)
+    field(:unique_number, :integer)
+    field(:confirmed, :boolean)
 
-    belongs_to :user, Frmwrk.Auth.User
-    belongs_to :campaign, Frmwrk.Campaigns.Campaign
+    belongs_to(:user, Frmwrk.Auth.User)
+    belongs_to(:campaign, Frmwrk.Campaigns.Campaign)
 
     timestamps()
   end
@@ -28,44 +28,43 @@ defmodule Frmwrk.Campaigns.Donation do
 
   def add_unique_number(%Changeset{valid?: true} = changeset) do
     unique_number = generate_unique_number()
-      changeset
-      |> put_change(:amount, get_field(changeset, :amount) + unique_number)
-      |> put_change(:unique_number, unique_number)
+
+    changeset
+    |> put_change(:amount, get_field(changeset, :amount) + unique_number)
+    |> put_change(:unique_number, unique_number)
   end
 
   def add_unique_number(%Changeset{valid?: false} = changeset), do: changeset
 
   def generate_unique_number() do
-    unique_number = :rand.uniform() * 1000 |> Kernel.trunc()
-    query = from d in __MODULE__, where: d.amount == ^unique_number and is_nil(d.verified_at)
-    case Repo.all query do
+    unique_number = (:rand.uniform() * 1000) |> Kernel.trunc()
+    query = from(d in __MODULE__, where: d.amount == ^unique_number and is_nil(d.verified_at))
+
+    case Repo.all(query) do
       [] ->
         unique_number
+
       _ ->
         generate_unique_number()
     end
   end
 
   def donation_to_confirm(amount) do
-    query = from d in __MODULE__, where: d.amount == ^amount and is_nil(d.confirmed)
-    case Repo.all query do
+    query = from(d in __MODULE__, where: d.amount == ^amount and is_nil(d.confirmed))
+
+    case Repo.all(query) do
       [campaign | _] ->
         campaign
+
       _ ->
         nil
     end
   end
 
   def confirm_donation(%__MODULE__{} = donation, "approve") do
-    result =
-      donation
-      |> Ecto.Changeset.change(confirmed: true)
-      |> Repo.update()
-    
-    case result do
-      {:ok, _} ->
-        nil
-    end
+    donation
+    |> Ecto.Changeset.change(confirmed: true)
+    |> Repo.update()
   end
 
   def confirm_donation(%__MODULE__{} = donation, "cancel") do
