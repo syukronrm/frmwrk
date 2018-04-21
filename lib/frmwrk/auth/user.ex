@@ -42,16 +42,14 @@ defmodule Frmwrk.Auth.User do
     |> put_change(:password_hash, Comeonin.Bcrypt.hashpwsalt(password))
   end
 
-  def password_exist?(query, %__MODULE__{} = user) do
-    query = from u in query,
-          where: is_nil(u.password_hash)
-          and ^user.id == u.id
-
-    case Repo.one query do
+  def password_exist?(%__MODULE__{password_hash: password_hash} = _user) do
+    case password_hash do
       nil ->
-        true
-      _ ->
         false
+      "" ->
+        false
+      _ ->
+        true
     end
   end
 

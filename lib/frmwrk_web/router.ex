@@ -42,7 +42,7 @@ defmodule FrmwrkWeb.Router do
   end
 
   scope "/auth", FrmwrkWeb do
-    pipe_through :browser
+    pipe_through [:browser, :auth]
 
     get "/login", AuthController, :login
     post "/login", AuthController, :create_login

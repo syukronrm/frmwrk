@@ -29,7 +29,7 @@ defmodule FrmwrkWeb.AuthController do
   def create(conn, changeset) do
     case insert_or_update_user(changeset) do
       {:ok, user} ->
-        case User.password_exist?(User, user) do
+        case User.password_exist?(user) do
           true ->
             conn
             |> put_flash(:info, "Thank you for signing in!")
