@@ -3,8 +3,6 @@ defmodule FrmwrkWeb.CampaignController do
 
   alias Frmwrk.Campaigns
   alias Frmwrk.Campaigns.Campaign
-  alias Frmwrk.Campaigns.Donation
-  alias Frmwrk.Auth.User
 
   def index(conn, _params) do
     campaigns = Campaigns.list_campaigns()
@@ -60,66 +58,5 @@ defmodule FrmwrkWeb.CampaignController do
     conn
     |> put_flash(:info, "Campaign deleted successfully.")
     |> redirect(to: campaign_path(conn, :index))
-  end
-
-  def donation_new(conn, %{"url" => url}) do
-    case Campaigns.get_campaign_by_url(url) do
-      nil ->
-        conn
-        |> put_flash(:error, "Kampanye tidak ditemukan")
-        |> redirect(to: campaign_path(conn, :index))
-      campaign ->
-        changeset = Campaigns.change_donation(%Campaigns.Donation{})
-        conn
-        |> render("donation_new.html", changeset: changeset, campaign: campaign)
-    end
-  end
-
-  def donation_create(conn, %{"url" => url, "donation" => donation_params}) do
-    case Campaigns.get_campaign_by_url(url) do
-      nil ->
-        conn
-        |> put_flash(:error, "Kampanye tidak ditemukan")
-        |> redirect(to: campaign_path(conn, :index))
-      campaign ->
-        user =
-          if Frmwrk.Auth.Guardian.Plug.authenticated?(conn) do
-            conn.assigns.user
-          else
-            %User{}
-          end
-
-        case Campaigns.create_donation(donation_params, campaign, user) do
-          {:ok, donation} ->
-            conn
-            |> render("donation_confirm.html", donation: donation, campaign: campaign)
-          {:error, changeset} ->
-            conn
-            |> put_flash(:info, "Pastikan donasi Anda lebih dari Rp. 20.000,-")
-            |> render("donation_new.html", changeset: changeset, campaign: campaign)
-        end
-    end
-  end
-
-  def donation_confirm(conn, %{"url" => url, "amount" => amount, "action" => action}) do
-    case Campaigns.get_campaign_by_url(url) do
-      nil ->
-        conn
-        |> put_flash(:error, "Kampanye tidak ditemukan")
-        |> redirect(to: campaign_path(conn, :index))
-      campaign ->
-        case Donation.donation_to_confirm(amount) do
-          nil ->
-            conn
-            |> put_flash(:info, "Donasi tidak ditemukan")
-            |> redirect(to: campaign_path(conn, :show, campaign.url))
-          donation ->
-            Donation.confirm_donation(donation, action)
-
-            conn
-            |> put_flash(:info, "Terima kasih atas Donasi Anda")
-            |> redirect(to: campaign_path(conn, :show, campaign.url))
-        end
-    end
   end
 end

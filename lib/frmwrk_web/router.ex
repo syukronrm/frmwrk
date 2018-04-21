@@ -36,9 +36,9 @@ defmodule FrmwrkWeb.Router do
 
     get "/:url/comment", CampaignController, :comment_new
 
-    get "/:url/donation", CampaignController, :donation_new
-    post "/:url/donation", CampaignController, :donation_create
-    post "/:url/donation/:amount/:action", CampaignController, :donation_confirm
+    get "/:url/donation", DonationController, :new
+    post "/:url/donation", DonationController, :create
+    post "/:url/donation/:amount/:action", DonationController, :confirm
   end
 
   scope "/auth", FrmwrkWeb do

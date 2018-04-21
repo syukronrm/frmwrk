@@ -12,7 +12,7 @@
         <span class="lead">tercapai</span>
         <h2 class="mt-4">Rp 3.120.000,-</h2>
         <span class="lead">dari target Rp 10.000.000,-</span>
-        <a href="<%= campaign_path(@conn, :donation_new, @campaign.url)%>" role="button" class="btn btn-primary btn-lg btn-block mt-4">Donate</a>
+        <a href="<%= donation_path(@conn, :new, @campaign.url)%>" role="button" class="btn btn-primary btn-lg btn-block mt-4">Donate</a>
       </div>
     </div>
   </div>

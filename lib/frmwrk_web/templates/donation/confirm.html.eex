@@ -8,13 +8,13 @@
   <p>Anda tidak perlu konfirmasi manual</p>
   <p class="mt-4">Apakah Anda mengkonfirmasi biaya tersebut?</p>
   <%= link "Batal",
-      to: campaign_path(@conn, :donation_confirm,
+      to: donation_path(@conn, :confirm,
           @campaign.url, @donation.amount, :cancel),
       method: :post,
       class: "btn btn-outline-primary"
   %>
   <%= link "Konfirmasi", 
-      to: campaign_path(@conn, :donation_confirm, 
+      to: donation_path(@conn, :confirm, 
           @campaign.url, @donation.amount, :approve), 
       method: :post,
       class: "btn btn-primary" %>
