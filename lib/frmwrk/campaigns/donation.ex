@@ -2,6 +2,7 @@ defmodule Frmwrk.Campaigns.Donation do
   use Ecto.Schema
 
   alias Frmwrk.Repo
+  alias Ecto.Changeset
 
   import Ecto.Changeset
   import Ecto.Query
@@ -25,17 +26,14 @@ defmodule Frmwrk.Campaigns.Donation do
     |> validate_number(:amount, greater_than_or_equal_to: 20000)
   end
 
-  def add_unique_number(changeset) do
-    case changeset.valid? do
-      true ->
-        unique_number = generate_unique_number()
-        changeset
-        |> put_change(:amount, get_field(changeset, :amount) + unique_number)
-        |> put_change(:unique_number, unique_number)
-      false ->
-        changeset
-    end
+  def add_unique_number(%Changeset{valid?: true} = changeset) do
+    unique_number = generate_unique_number()
+      changeset
+      |> put_change(:amount, get_field(changeset, :amount) + unique_number)
+      |> put_change(:unique_number, unique_number)
   end
+
+  def add_unique_number(%Changeset{valid?: false} = changeset), do: changeset
 
   def generate_unique_number() do
     unique_number = :rand.uniform() * 1000 |> Kernel.trunc()

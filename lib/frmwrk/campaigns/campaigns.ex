@@ -47,11 +47,11 @@ defmodule Frmwrk.Campaigns do
 
   def get_donation!(id), do: Repo.get!(Donation, id)
 
-  def create_donation(attrs \\ %{}, %Campaign{} = campaign, %User{} = user) do
+  def create_donation(attrs \\ %{}, %Campaign{id: campaign_id}, %User{id: user_id}) do
     %Donation{}
     |> Donation.changeset(attrs)
-    |> put_assoc(:user, user)
-    |> put_assoc(:campaign, campaign)
+    |> put_change(:user_id, user_id)
+    |> put_change(:campaign_id, campaign_id)
     |> Donation.add_unique_number()
     |> Repo.insert()
   end

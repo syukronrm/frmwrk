@@ -83,7 +83,7 @@ defmodule FrmwrkWeb.CampaignController do
         |> redirect(to: campaign_path(conn, :index))
       campaign ->
         user =
-          if conn.assigns.user do
+          if Frmwrk.Auth.Guardian.Plug.authenticated?(conn) do
             conn.assigns.user
           else
             %User{}
