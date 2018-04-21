@@ -5,7 +5,7 @@
     <%= @conn.assigns.user.name %>
     <a class="btn btn-outline-primary" href="/auth/signout">Keluar</a>
   <% else %>
-    <a class="btn btn-outline-primary" href="/auth/google">Masuk</a>
+    <a class="btn btn-outline-primary" href="/auth/login">Masuk</a>
   <% end %>
   </nav>
 </div>

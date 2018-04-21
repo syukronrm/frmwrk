@@ -10,4 +10,5 @@
 
     <%= submit "Submit" %>
   <% end %>
+  <a class="btn btn-outline-primary" href="/auth/google">Masuk dengan Google</a>
 </div>
