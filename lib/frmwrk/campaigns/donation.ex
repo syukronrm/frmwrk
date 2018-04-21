@@ -35,7 +35,6 @@ defmodule Frmwrk.Campaigns.Donation do
       false ->
         changeset
     end
-
   end
 
   def generate_unique_number() do
@@ -47,5 +46,32 @@ defmodule Frmwrk.Campaigns.Donation do
       _ ->
         generate_unique_number()
     end
+  end
+
+  def donation_to_confirm(amount) do
+    query = from d in __MODULE__, where: d.amount == ^amount and is_nil(d.confirmed)
+    case Repo.all query do
+      [campaign | _] ->
+        campaign
+      _ ->
+        nil
+    end
+  end
+
+  def confirm_donation(%__MODULE__{} = donation, "approve") do
+    result =
+      donation
+      |> Ecto.Changeset.change(confirmed: true)
+      |> Repo.update()
+    
+    case result do
+      {:ok, _} ->
+        nil
+    end
+  end
+
+  def confirm_donation(%__MODULE__{} = donation, "cancel") do
+    donation
+    |> Repo.delete()
   end
 end

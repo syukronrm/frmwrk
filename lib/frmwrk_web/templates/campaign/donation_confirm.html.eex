@@ -6,4 +6,16 @@
   <p>Kami menambahkan Rp. <%= @donation.unique_number %>,00 sebagai kode konfirmasi.</p>
   <p>Kode tersebut digunakan untuk konfirmasi transfer otomatis</p>
   <p>Anda tidak perlu konfirmasi manual</p>
+  <p class="mt-4">Apakah Anda mengkonfirmasi biaya tersebut?</p>
+  <%= link "Batal",
+      to: campaign_path(@conn, :donation_confirm,
+          @campaign.url, @donation.amount, :cancel),
+      method: :post,
+      class: "btn btn-outline-primary"
+  %>
+  <%= link "Konfirmasi", 
+      to: campaign_path(@conn, :donation_confirm, 
+          @campaign.url, @donation.amount, :approve), 
+      method: :post,
+      class: "btn btn-primary" %>
 </div>

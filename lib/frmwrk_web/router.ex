@@ -38,6 +38,7 @@ defmodule FrmwrkWeb.Router do
 
     get "/:url/donation", CampaignController, :donation_new
     post "/:url/donation", CampaignController, :donation_create
+    post "/:url/donation/:amount/:action", CampaignController, :donation_confirm
   end
 
   scope "/auth", FrmwrkWeb do
