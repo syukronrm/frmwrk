@@ -63,7 +63,7 @@ defmodule Frmwrk.Auth.User do
       user.password_hash == nil ->
         {:error, :password_had_not_set}
       user && checkpw(password, user.password_hash) ->
-        {:ok}
+        {:ok, user}
       user ->
         {:error, :unauthorized}
       true ->

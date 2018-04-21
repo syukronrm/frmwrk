@@ -99,9 +99,10 @@ defmodule FrmwrkWeb.AuthController do
 
   def create_login(conn, %{"user" => %{"email" => email, "password" => password}}) do
     case User.check_creds(email, password) do
-      {:ok} ->
+      {:ok, user} ->
         conn
         |> put_flash(:info, "You're now logged in!")
+        |> Guardian.Plug.sign_in(user)
         |> redirect(to: page_path(conn, :index))
 
       {:error, _reason} ->
