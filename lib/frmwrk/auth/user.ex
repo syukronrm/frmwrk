@@ -14,6 +14,7 @@ defmodule Frmwrk.Auth.User do
     field(:token, :string)
     field(:password, :string, virtual: true)
     field(:password_hash, :string)
+    field(:password_confirmation, :string, virtual: true)
 
     has_many(:campaigns, Frmwrk.Campaigns.Campaign)
     has_many(:comments, Frmwrk.Campaigns.Comment)
@@ -28,6 +29,24 @@ defmodule Frmwrk.Auth.User do
     |> validate_required([:name, :email])
     |> unique_constraint(:email)
   end
+
+  def registration_changeset(user, attrs \\ %{}) do
+    user
+    |> cast(attrs, [:name, :email, :password, :password_confirmation])
+    |> validate_required([:name, :email, :password, :password_confirmation])
+    |> validate_confirmation(:password)
+    |> validate_format(:email, ~r/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/)
+    |> validate_length(:name, min: 3)
+    |> hashing_password()
+  end
+
+  defp hashing_password(%Changeset{valid?: valid?} = changeset) when valid? do
+    changeset
+    |> put_change(:password_hash,
+                  Comeonin.Bcrypt.hashpwsalt(changeset.changes.password))
+  end
+
+  defp hashing_password(changeset), do: changeset
 
   def type(user) do
     case user do
