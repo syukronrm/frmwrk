@@ -42,7 +42,7 @@ config :frmwrk, Frmwrk.Auth.Guardian,
 
 # Config Bamboo
 config :frmwrk, Frmwrk.Notifications.Mailer,
-  adaper: Bamboo.LocalAdapter
+  adapter: Bamboo.LocalAdapter
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
