@@ -40,6 +40,10 @@ config :frmwrk, Frmwrk.Auth.Guardian,
   issuer: "frmwrk",
   secret_key: System.get_env("GUARDIAN_SECRET_KEY")
 
+# Config Bamboo
+config :frmwrk, Frmwrk.Notifications.Mailer,
+  adaper: Bamboo.LocalAdapter
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"
