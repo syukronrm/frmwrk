@@ -113,4 +113,27 @@ defmodule FrmwrkWeb.AuthController do
         |> render("login.html", changeset: changeset)
     end
   end
+
+  def register(conn, _params) do
+    changeset = Auth.change_user(%User{})
+    render(conn, "register.html", changeset: changeset)
+  end
+
+  def create_user(conn, params) do
+    IO.inspect params
+    %{"user" => user_params} = params
+
+    changeset = User.changeset(%User{}, user_params)
+
+    {:ok, user} =
+      changeset
+      |> User.set_password()
+      |> insert_or_update_user()
+
+    conn
+    |> put_flash(:info, "Selamate bergabung")
+    |> IO.inspect
+    |> Guardian.Plug.sign_in(user)
+    |> redirect(to: page_path(conn, :index))
+  end
 end

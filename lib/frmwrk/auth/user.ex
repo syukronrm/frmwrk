@@ -3,6 +3,7 @@ defmodule Frmwrk.Auth.User do
   import Ecto.{Changeset, Query}
   import Comeonin.Bcrypt, only: [checkpw: 2, dummy_checkpw: 0]
 
+  alias Ecto.Changeset
   alias Frmwrk.Repo
 
   schema "users" do
@@ -23,8 +24,8 @@ defmodule Frmwrk.Auth.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:name, :email, :token, :provider, :role])
-    |> validate_required([:name, :email, :token, :provider])
+    |> cast(attrs, [:name, :email, :token, :provider, :role, :password, :password_hash])
+    |> validate_required([:name, :email])
     |> unique_constraint(:email)
   end
 
@@ -75,6 +76,14 @@ defmodule Frmwrk.Auth.User do
       true ->
         dummy_checkpw()
         {:error, :not_found}
+    end
+  end
+
+  def set_password(%Changeset{} = changeset) do
+    with password <- get_field(changeset, :password)
+    do
+      changeset
+      |> put_change(:password_hash, Comeonin.Bcrypt.hashpwsalt(password))
     end
   end
 end

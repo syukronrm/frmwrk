@@ -7,6 +7,6 @@ defmodule Frmwrk.Auth.Guardian do
   def subject_for_token(%User{} = user, _claims), do: {:ok, user.id}
   def subject_for_token(_, _), do: {:error, "Unknown resource type"}
 
-  def resource_from_claims(%{"sub" => id}), do: {:ok, Auth.get_user!(id)}
+  def resource_from_claims(%{"sub" => id}) when not is_nil(id), do: {:ok, Auth.get_user!(id)}
   def resource_from_claims(_), do: {:error, "Unknown resource type"}
 end

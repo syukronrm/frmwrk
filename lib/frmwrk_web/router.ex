@@ -50,10 +50,12 @@ defmodule FrmwrkWeb.Router do
     get "/password", AuthController, :password
     post "/password", AuthController, :set_password
 
+    get "/register", AuthController, :register
+    post "/register", AuthController, :create_user
+
     get "/signout", AuthController, :delete
     get "/:provider", AuthController, :request
     get "/:provider/callback", AuthController, :callback
-
   end
 
   # Other scopes may use custom stacks.

@@ -1,0 +1,21 @@
+<div class="container">
+  <%= form_for @changeset, auth_path(@conn, :create_user), fn f -> %>
+    <label for="">
+      Nama: <%= text_input f, :name  %>
+    </label>
+
+    <label for="">
+      Email: <%= text_input f, :email %>
+    </label>
+
+    <label for="">
+      Password: <%= password_input f, :password %>
+    </label>
+
+    <label for="">
+      Password Again: <%= password_input f, :password_again %>
+    </label>
+    
+    <%= submit "Daftar" %>
+  <% end %>
+</div>
