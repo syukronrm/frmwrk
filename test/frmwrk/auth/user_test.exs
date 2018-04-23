@@ -54,18 +54,29 @@ defmodule Frmwrk.Auth.UserTest do
       password: "sandi"
     }
 
+    @tag check_creds: "true"
     test "check valid user" do
-      user = insert(:user, @valid_attrs)
+      insert(:user, @valid_attrs)
 
       {result, _reason} = User.check_creds_ @valid_attrs
 
       assert result == :ok
     end
-
+    
+    @tag check_creds: "true"
     test "check invalid password" do
-      user = insert(:user, @valid_attrs)
+      insert(:user, @valid_attrs)
 
       {result, _reason} = User.check_creds_(%{ @valid_attrs | password: "test"})
+
+      assert result == :error
+    end
+
+    @tag check_creds: "true"
+    test "check invalid input" do
+      insert(:user, @valid_attrs)
+
+      {result, _reason} = User.check_creds_(%{})
 
       assert result == :error
     end

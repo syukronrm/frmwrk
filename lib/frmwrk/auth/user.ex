@@ -37,6 +37,7 @@ defmodule Frmwrk.Auth.User do
     |> validate_confirmation(:password)
     |> validate_format(:email, ~r/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/)
     |> validate_length(:name, min: 3)
+    |> unique_constraint(:email)
     |> hashing_password()
   end
 
@@ -45,8 +46,27 @@ defmodule Frmwrk.Auth.User do
     |> put_change(:password_hash,
                   Comeonin.Bcrypt.hashpwsalt(changeset.changes.password))
   end
-
   defp hashing_password(changeset), do: changeset
+
+  def check_creds_(%{email: email, password: password}) do
+    email_downcase = String.downcase(email)
+
+    query = from(u in __MODULE__, where: u.email == ^email_downcase)
+    user = Repo.one(query)
+
+    cond do
+      user && checkpw(password, user.password_hash) ->
+        {:ok, user}
+
+      user ->
+        {:error, :unauthorized}
+
+      true ->
+        dummy_checkpw()
+        {:error, :not_found}
+    end
+  end
+  def check_creds_(_), do: {:error, :not_found}
 
   def type(user) do
     case user do
