@@ -38,9 +38,17 @@ defmodule Frmwrk.Auth.User do
     |> validate_format(:email, ~r/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/)
     |> validate_length(:name, min: 3)
     |> unique_constraint(:email)
+    |> sanitize_email()
     |> hashing_password()
   end
 
+  defp sanitize_email(%Changeset{valid?: valid?} = changeset) when valid? do
+    change_email = String.downcase Changeset.get_change(changeset, :email)
+    changeset
+    |> put_change(:email, change_email)
+  end
+  defp sanitize_email(changeset), do: changeset
+  
   defp hashing_password(%Changeset{valid?: valid?} = changeset) when valid? do
     changeset
     |> put_change(:password_hash,

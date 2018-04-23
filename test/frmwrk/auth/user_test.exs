@@ -46,6 +46,12 @@ defmodule Frmwrk.Auth.UserTest do
 
       assert Comeonin.Bcrypt.checkpw("sandi", changeset.changes.password_hash)
     end
+
+    test "email must be converted to lowercase" do
+      changeset = User.registration_changeset %User{}, %{@valid_attrs | email: "TEST@mail.com"}
+
+      assert changeset.changes.email == "test@mail.com"
+    end
   end
 
   describe "User.check_user/1" do
