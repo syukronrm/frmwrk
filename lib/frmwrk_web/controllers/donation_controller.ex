@@ -50,7 +50,7 @@ defmodule FrmwrkWeb.DonationController do
         Donation.confirm_donation(donation, action)
 
         conn
-        |> put_flash(:info, "Terima kasih atas Donasi Anda")
+        |> put_flash(:info, "Terima kasih atas donasi Anda")
         |> redirect(to: campaign_path(conn, :show, campaign.url))
     end
   end
