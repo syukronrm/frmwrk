@@ -46,16 +46,7 @@ defmodule Frmwrk.Auth do
     |> User.hash_password(password)
   end
 
-  def login(conn, %User{} = user) do
-    Guardian.Plug.sign_in(conn, user)
-  end
-
-  def logout(conn) do
-    Guardian.Plug.sign_out(conn)
-  end
-
-  # @spec current_user(Plug.Conn) :: User
-  def current_user(conn) do
-    Guardian.Plug.current_resource(conn)
-  end
+  def login(conn, %User{} = user), do: Guardian.Plug.sign_in(conn, user)
+  def logout(conn), do: Guardian.Plug.sign_out(conn)
+  def current_user(conn), do: Guardian.Plug.current_resource(conn)
 end
