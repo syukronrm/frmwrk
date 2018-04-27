@@ -89,6 +89,6 @@ defmodule FrmwrkWeb.CampaignControllerTest do
   end
 
   defp create_campaign(_) do
-    campaign = fixture(:campaign)
+    fixture(:campaign)
   end
 end

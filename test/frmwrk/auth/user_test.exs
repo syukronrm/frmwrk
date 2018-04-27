@@ -46,6 +46,12 @@ defmodule Frmwrk.Auth.UserTest do
 
       assert Comeonin.Bcrypt.checkpw("sandi", changeset.changes.password_hash)
     end
+
+    test "email must be converted to lowercase" do
+      changeset = User.registration_changeset %User{}, %{@valid_attrs | email: "TEST@mail.com"}
+
+      assert changeset.changes.email == "test@mail.com"
+    end
   end
 
   describe "User.check_user/1" do
@@ -54,18 +60,29 @@ defmodule Frmwrk.Auth.UserTest do
       password: "sandi"
     }
 
+    @tag check_creds: "true"
     test "check valid user" do
-      user = insert(:user, @valid_attrs)
+      insert(:user, @valid_attrs)
 
       {result, _reason} = User.check_creds_ @valid_attrs
 
       assert result == :ok
     end
-
+    
+    @tag check_creds: "true"
     test "check invalid password" do
-      user = insert(:user, @valid_attrs)
+      insert(:user, @valid_attrs)
 
       {result, _reason} = User.check_creds_(%{ @valid_attrs | password: "test"})
+
+      assert result == :error
+    end
+
+    @tag check_creds: "true"
+    test "check invalid input" do
+      insert(:user, @valid_attrs)
+
+      {result, _reason} = User.check_creds_(%{})
 
       assert result == :error
     end

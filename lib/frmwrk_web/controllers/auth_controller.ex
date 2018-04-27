@@ -102,7 +102,7 @@ defmodule FrmwrkWeb.AuthController do
       {:ok, user} ->
         conn
         |> put_flash(:info, "You're now logged in!")
-        |> Guardian.Plug.sign_in(user)
+        |> Auth.login(user)
         |> redirect(to: page_path(conn, :index))
 
       {:error, _reason} ->
@@ -119,21 +119,21 @@ defmodule FrmwrkWeb.AuthController do
     render(conn, "register.html", changeset: changeset)
   end
 
-  def create_user(conn, params) do
-    IO.inspect params
-    %{"user" => user_params} = params
+  def create_user(conn, %{"user" => user_params}) do
+    result =
+      %User{}
+      |> User.registration_changeset(user_params)
+      |> Repo.insert()
 
-    changeset = User.changeset(%User{}, user_params)
-
-    {:ok, user} =
-      changeset
-      |> User.set_password()
-      |> insert_or_update_user()
-
-    conn
-    |> put_flash(:info, "Selamate bergabung")
-    |> IO.inspect
-    |> Guardian.Plug.sign_in(user)
-    |> redirect(to: page_path(conn, :index))
+    case result do
+      {:ok, user} ->
+        conn
+        |> Guardian.Plug.sign_in(user)
+        |> put_flash(:info, "Selamat bergabung")
+        |> redirect(to: page_path(conn, :index))
+      {:error, changeset} ->
+        conn
+        |> render("register.html", changeset: changeset)
+    end
   end
 end

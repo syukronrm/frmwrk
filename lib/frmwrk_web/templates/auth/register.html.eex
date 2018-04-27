@@ -2,18 +2,31 @@
   <%= form_for @changeset, auth_path(@conn, :create_user), fn f -> %>
     <label for="">
       Nama: <%= text_input f, :name  %>
+      <%= if message = f.errors[:name] do %>
+        <span><%= translate_error(message) %></span>
+      <% end %>
     </label>
 
     <label for="">
       Email: <%= text_input f, :email %>
+
+      <%= if message = f.errors[:email] do %>
+        <span><%= translate_error(message) %></span>
+      <% end %>
     </label>
 
     <label for="">
       Password: <%= password_input f, :password %>
+      <%= if message = f.errors[:password] do %>
+        <span><%= translate_error(message) %></span>
+      <% end %>
     </label>
 
     <label for="">
-      Password Again: <%= password_input f, :password_again %>
+      Password Again: <%= password_input f, :password_confirmation %>
+      <%= if message = f.errors[:password_confirmation] do %>
+        <span><%= translate_error(message) %></span>
+      <% end %>
     </label>
     
     <%= submit "Daftar" %>
